@@ -80,7 +80,7 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800], // Background color set to dark gray
+      backgroundColor: Colors.grey[900],
       body: Center(
         child: _isLoading
             ? Lottie.asset(
@@ -88,7 +88,7 @@ class _WeatherPageState extends State<WeatherPage> {
                 height: 300,
                 width: 300,
                 repeat: true,
-              ) // Custom loading animation
+              )
             : SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,8 +97,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.location_on,
-                            color: Colors.white), // Location icon
+                        Icon(Icons.location_on, color: Colors.white),
                         Text(
                           _weather?.cityName ?? 'City...',
                           style: TextStyle(
@@ -120,8 +119,7 @@ class _WeatherPageState extends State<WeatherPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.thermostat_outlined,
-                            color: Colors.white), // Temperature icon
+                        Icon(Icons.thermostat_outlined, color: Colors.white),
                         SizedBox(width: 5),
                         Text(
                           '${_weather?.temperature.round()}°C',
@@ -157,27 +155,20 @@ class _WeatherPageState extends State<WeatherPage> {
                     SizedBox(height: 50),
                     ElevatedButton.icon(
                       onPressed: _fetchWeather,
-                      icon: Icon(Icons.refresh,
-                          color: Colors.white), // Icon color set to white
+                      icon: Icon(Icons.refresh, color: Colors.white),
                       label: Text(
                         'Refresh Weather',
                         style: TextStyle(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal:
-                                20), // Padding around the button content
-                        backgroundColor:
-                            Colors.grey[700], // Background color of the button
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        backgroundColor: Colors.grey[700],
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              10), // Rounded corners for the button
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
-
-                    // SizedBox(height: 50),
                   ],
                 ),
               ),
