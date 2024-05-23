@@ -152,6 +152,27 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildInfoBox(
+                          icon: Icons.sunny,
+                          label: 'Sunrise',
+                          value: '${_weather?.sunrise}',
+                        ),
+                        _buildInfoBox(
+                          icon: Icons.nightlight_round,
+                          label: 'Sunset',
+                          value: '${_weather?.sunset}',
+                        ),
+                        _buildInfoBox(
+                          icon: Icons.arrow_circle_up_outlined,
+                          label: 'Wind Speed',
+                          value: '${_weather?.windspeeed} m/s',
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 50),
                     ElevatedButton.icon(
                       onPressed: _fetchWeather,

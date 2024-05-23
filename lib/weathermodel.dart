@@ -2,19 +2,21 @@ class Weather {
   final String cityName;
   final double temperature;
   final String Condition;
-  final double min_temperature;
-  final double max_temperature;
+  final double sunrise;
+  final double sunset;
   final double pressure;
   final double humidity;
+  final double windspeeed;
 
   Weather({
     required this.cityName,
     required this.temperature,
     required this.Condition,
-    required this.min_temperature,
-    required this.max_temperature,
+    required this.sunrise,
+    required this.sunset,
     required this.pressure,
     required this.humidity,
+    required this.windspeeed,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -22,9 +24,10 @@ class Weather {
       cityName: json['name'],
       temperature: json['main']['temp'].toDouble(),
       Condition: json['weather'][0]['main'],
-      min_temperature: json['main']['temp_min'].toDouble(),
-      max_temperature: json['main']['temp_max'].toDouble(),
+      sunrise: json['sys']['sunrise'],
+      sunset: json['sys']['sunset'],
       pressure: json['main']['pressure'].toDouble(),
+      windspeeed: json['wind']['speed'].toDouble(),
       humidity: json['main']['humidity'].toDouble(),
     );
   }
