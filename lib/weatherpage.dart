@@ -1,3 +1,4 @@
+// weather_page.dart
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weatherapp/weathermodel.dart';
@@ -11,32 +12,40 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  final _weatherService = Weatherservice('37a2aecbfa9212f6867052dbce6be326');
+  final _weatherService = WeatherService('4730d23e030e699f53d620fdd8cbed9a');
   Weather? _weather;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWeather();
+  }
 
   _fetchWeather() async {
     setState(() {
       _isLoading = true;
     });
-    String cityName = await _weatherService.getCurrentCity();
-    print('Fetched City Name: $cityName');
 
-    if (cityName.isNotEmpty && cityName != 'Unknown') {
-      try {
+    try {
+      String cityName = await _weatherService.getCurrentCity();
+      print('Fetched City Name: $cityName');
+
+      if (cityName.isNotEmpty && cityName != 'Unknown') {
         final weather = await _weatherService.getWeather(cityName);
         setState(() {
           _weather = weather;
           _isLoading = false;
         });
-      } catch (e) {
-        print(e);
+        print('Weather Data: ${weather.toString()}'); // Debug print
+      } else {
+        print('Failed to get city name');
         setState(() {
           _isLoading = false;
         });
       }
-    } else {
-      print('Failed to get city name');
+    } catch (e) {
+      print('Error fetching weather: $e'); // More detailed error message
       setState(() {
         _isLoading = false;
       });
@@ -65,16 +74,6 @@ class _WeatherPageState extends State<WeatherPage> {
       default:
         return 'assets/sunny.json';
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchWeather();
-  }
-
-  Future<void> _refreshWeather() async {
-    await _fetchWeather();
   }
 
   @override
@@ -110,7 +109,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     ),
                     SizedBox(height: 20),
                     Lottie.asset(
-                      getWeatherAnimation(_weather?.Condition),
+                      getWeatherAnimation(_weather?.condition),
                       height: 200,
                       width: 200,
                     ),
@@ -122,7 +121,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         Icon(Icons.thermostat_outlined, color: Colors.white),
                         SizedBox(width: 5),
                         Text(
-                          '${_weather?.temperature.round()}°C',
+                          '${_weather?.temperature?.round() ?? ''}°C',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -138,17 +137,17 @@ class _WeatherPageState extends State<WeatherPage> {
                         _buildInfoBox(
                           icon: Icons.opacity_outlined,
                           label: 'Humidity',
-                          value: '${_weather?.humidity.round()}%',
+                          value: '${_weather?.humidity?.round() ?? ''}%',
                         ),
                         _buildInfoBox(
                           icon: Icons.cloud_outlined,
                           label: 'Pressure',
-                          value: '${_weather?.pressure.round()}hPa',
+                          value: '${_weather?.pressure?.round() ?? ''}hPa',
                         ),
                         _buildInfoBox(
                           icon: Icons.waves_outlined,
                           label: 'Condition',
-                          value: _weather?.Condition ?? "",
+                          value: _weather?.condition ?? "",
                         ),
                       ],
                     ),
@@ -159,17 +158,21 @@ class _WeatherPageState extends State<WeatherPage> {
                         _buildInfoBox(
                           icon: Icons.sunny,
                           label: 'Sunrise',
-                          value: '${_weather?.sunrise}',
+                          value: _weather != null
+                              ? '${DateTime.fromMillisecondsSinceEpoch(_weather!.sunrise * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(_weather!.sunrise * 1000).minute}'
+                              : '',
                         ),
                         _buildInfoBox(
                           icon: Icons.nightlight_round,
                           label: 'Sunset',
-                          value: '${_weather?.sunset}',
+                          value: _weather != null
+                              ? '${DateTime.fromMillisecondsSinceEpoch(_weather!.sunset * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(_weather!.sunset * 1000).minute}'
+                              : '',
                         ),
                         _buildInfoBox(
                           icon: Icons.arrow_circle_up_outlined,
                           label: 'Wind Speed',
-                          value: '${_weather?.windspeeed} m/s',
+                          value: '${_weather?.windSpeed ?? ''} m/s',
                         ),
                       ],
                     ),
