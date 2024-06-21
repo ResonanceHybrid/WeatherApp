@@ -57,6 +57,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
     switch (mainCondition.toLowerCase()) {
       case 'clouds':
+        return 'assets/cloud.json';
       case 'mist':
       case 'smoke':
       case 'haze':
@@ -92,14 +93,14 @@ class _WeatherPageState extends State<WeatherPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.location_on, color: Colors.white),
+                        const Icon(Icons.location_on, color: Colors.white),
                         Text(
                           _weather?.cityName ?? 'City...',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -107,7 +108,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Lottie.asset(
                       getWeatherAnimation(_weather?.condition),
                       height: 200,
@@ -118,11 +119,12 @@ class _WeatherPageState extends State<WeatherPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.thermostat_outlined, color: Colors.white),
+                        const Icon(Icons.thermostat_outlined,
+                            color: Colors.white),
                         SizedBox(width: 5),
                         Text(
                           '${_weather?.temperature?.round() ?? ''}°C',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -130,7 +132,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

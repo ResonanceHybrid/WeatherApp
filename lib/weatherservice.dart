@@ -23,7 +23,7 @@ class WeatherService {
       }
 
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+          desiredAccuracy: LocationAccuracy.bestForNavigation);
 
       print(
           'Position: ${position.latitude}, ${position.longitude}'); // Debug print
